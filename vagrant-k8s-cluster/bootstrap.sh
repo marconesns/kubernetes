@@ -26,10 +26,10 @@ sysctl --system >/dev/null 2>&1
 echo "[TASK 5] Install containerd runtime"
 yum install -y yum-utils device-mapper-persistent-data lvm2 >/dev/null 2>&1
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo >/dev/null 2>&1
-yum update -y && yum install -y containerd.io
+yum update -y -q && yum install -y -q containerd.io >/dev/null 2>&1
 mkdir -p /etc/containerd
 containerd config default > /etc/containerd/config.toml
-systemctl enable --now containerd
+systemctl enable --now containerd >/dev/null 2>&1
 
 
 echo "[TASK 6] Add apt repo for kubernetes"
@@ -45,7 +45,7 @@ exclude=kubelet kubeadm kubectl
 EOF
 
 echo "[TASK 7] Install Kubernetes components (kubeadm, kubelet and kubectl)"
-yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes >/dev/null 2>&1
+yum install -y -q kubelet kubeadm kubectl --disableexcludes=kubernetes >/dev/null 2>&1
 systemctl enable --now kubelet
 
 echo "[TASK 8] Enable ssh password authentication"
