@@ -24,7 +24,7 @@ EOF
 sysctl --system >/dev/null 2>&1
 
 echo "[TASK 5] Install containerd runtime"
-yum install -y yum-utils device-mapper-persistent-data lvm2 >/dev/null 2>&1
+yum install -y yum-utils device-mapper-persistent-data lvm2 iscsi-initiator-utils >/dev/null 2>&1
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo >/dev/null 2>&1
 yum update -y -q && yum install -y -q containerd.io >/dev/null 2>&1
 mkdir -p /etc/containerd
